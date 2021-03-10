@@ -1,0 +1,45 @@
+{
+  "monthly": [
+    {
+      "id": 1,
+      "name": "This is a JSON event",
+      "startdate": "2016-9-15",
+      "enddate": "2016-9-18",
+      "starttime": "12:00",
+      "endtime": "2:00",
+      "color": "#FFB128",
+      "url": ""
+    },
+    {
+      "id": 2,
+      "name": "HOOOLA",
+      "startdate": "2016-10-15",
+      "enddate": "",
+      "starttime": "12:00",
+      "endtime": "2:00",
+      "color": "#EF44EF",
+      "url": ""
+    },
+    {
+      "id": 2,
+      "name": "Cumpleaños Abner",
+      "startdate": "2017-08-11",
+      "enddate": "",
+      "starttime": "12:00",
+      "endtime": "2:00",
+      "color": "#EF44EF",
+      "url": "/periods"
+    }
+    ,
+    {
+      "id": 2,
+      "name": "Cumpleaños 2",
+      "startdate": "2017-08-11",
+      "enddate": "",
+      "starttime": "12:00",
+      "endtime": "2:00",
+      "color": "#FFB128",
+      "url": "/activities"
+    }
+  ]
+}

@@ -18,6 +18,11 @@ class Document extends Model
       return $this->belongsTo('App\Period');
   }
 
+  public function contingencies()
+  {
+      return $this->hasMany('App\Contingency');
+  }
+
   public function maintenances()
   {
       return $this->belongsToMany('App\Maintenance')->withTimestamps()->withPivot('execution_date', 'check_observation');

@@ -28,7 +28,10 @@ Route::group(['middleware' => 'auth'], function () { //Auth Users
     Route::get('/certifications/{id}/edit_comments','CertificationController@edit_Comments');
     Route::post('/certifications/{id?}/comments','CertificationController@update_Comments');
     Route::resource('/certifications','CertificationController');
-
+    
+    
+    Route::get('/contingencies/{document_id}', 'ContingencyController@create');
+    Route::resource('/contingencies','ContingencyController', ['except' => ['create']]);
 
 //rutas para administrador y observador
     Route::resource('/stations','StationController');

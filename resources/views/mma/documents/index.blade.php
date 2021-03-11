@@ -137,6 +137,7 @@
                 <th>Mantencion Asoc.</th>
                 <th>MMA <i class="icon comment"></i></th>
                 <th>Empresa <i class="icon comment"></i></th>
+                <th>Contingencias <i class="icon warning"></i></th>
                 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
         </thead>
@@ -255,6 +256,7 @@ function filterDataTableDocuments()
                 {"mDataProp":"maintenances"},
                 {"mDataProp":"mma_comment"},
                 {"mDataProp":"company_comment"},
+                {"mDataProp":"contingency"},
                 {"mDataProp":"actions"},
            ],
            "paging":   true,

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contingency;
+use App\Station;
+use App\Document;
 use Illuminate\Http\Request;
 
 class ContingencyController extends Controller
@@ -24,7 +26,8 @@ class ContingencyController extends Controller
      */
     public function create($document_id)
     {
-        return view('mma.contingencies.create')->with('document_id',$document_id);
+        return view('mma.contingencies.create')
+        ->with('document_id',$document_id);
     }
 
     /**
@@ -35,7 +38,29 @@ class ContingencyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->all();
+        $contingency = Contingency::create([
+            'anomaly_date' => request('anomaly_date'),
+            'visit_date' => request('visit_date'),
+            'tracing' => request('tracing'),
+            'parameter' => request('parameter'),
+            'ns' => request('ns'),
+            'causes_power_outage' => request('causes_power_outage'),
+            'cause_failure' => request('cause_failure'),
+            'another_cause' => request('another_cause'),
+            'solve_on_visit' => request('solve_on_visit'),
+            'manage_action' => request('manage_action')
+            
+        ]);
+        
+        //TODO: Arreglar, no hace el cambio
+        $document = Document::find(request('document_id'));
+        $document->update([
+            'contingency_id'=> $contingency->id
+        ]);
+        $document->save();
+
+        return redirect('/documents');
     }
 
     /**

@@ -107,6 +107,89 @@
 </form>
 <br>
 
+<h4 class="ui horizontal dividing header"><i class="exclamation triangle icon"></i>Contingencias Operacionales</h4>
+
+<form class="ui form" action="/reports/elements" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <div class="five  fields">
+        <div class="field">
+            <label>Estacion</label>
+            <select class="ui search dropdown" name="station">
+                    <option value="all">Todas</option>
+                @forelse($stations as $station)
+                    <option value="{{$station->id}}">{{$station->name}}</option>
+                @empty
+
+                @endforelse
+            </select>
+        </div>
+        <div class="field">
+            <label>Año</label>
+            <select class="ui search dropdown" name="year">
+                    <option value="all">Todos</option>
+                @forelse($years as $year)
+                    <option value="{{$year->date}}">{{$year->date}}</option>
+                @empty
+
+                @endforelse
+            </select>
+        </div>
+        <div class="field">
+            <label>Periodos</label>
+            <select class="ui  dropdown"  id="periods">
+                <option value="all" >Todos</option>
+                @foreach($periods as $period)
+                <option value="{{ $period->id }}">{{ $period->description }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="field">
+            <label>Parametro** TODO</label>
+            <select class="ui search dropdown" name="name" required>
+                <option value="all" >Todos</option>
+
+            </select>
+        </div>
+        <div class="field">
+            <label>Equipo</label>
+            <select class="ui search dropdown" name="name" required>
+                <option value="all" >Todos</option>
+                <option value="OTRO" >OTRO (Ninguno de la lista)</option>
+                <option value="MP" >MP</option>
+                <option value="O3" >O3</option>
+                <option value="CO" >CO</option>
+                <option value="NO/NOx" >NO/NOx</option>
+                <option value="SO2" >SO2</option>
+                <option value="WS" >WS</option>
+                <option value="WD" >WD</option>
+                <option value="RS" >RS</option>
+                <option value="THR" >THR</option>
+                <option value="P°" >P°</option>
+                <option value="PLUVIO" >PLUVIO</option>
+                <option value="DILUTOR" >DILUTOR</option>
+                <option value="GAZ" >GAZ</option>
+                <option value="LOGGER" >LOGGER</option>
+                <option value="MODEM" >MODEM</option>
+                <option value="PC" >PC</option>
+                <option value="AA" >AA</option>
+                <option value="UPS" >UPS</option>
+                <option value="BOMBA" >BOMBA</option>
+
+            </select>
+        </div>
+        
+        
+        
+
+    </div>
+
+    <button class="ui right floated small blue labeled icon button" type="submit" data-content="Buscar">
+        <i class="search icon"></i> Buscar
+    </button>
+</form>
+<br>
+
+
 <!--
 <h4 class="ui horizontal dividing header"><i class="exchange icon"></i>Equipos Retirados </h4>
 <form class="ui form" action="/reports/elements_nodiag" method="post" enctype="multipart/form-data">

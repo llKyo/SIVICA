@@ -27,4 +27,9 @@ class Station extends Model
   {
       return $this->hasMany('App\Document');
   }
+  
+  public function contingencies()
+  {
+      return $this->hasMany('App\Contingency');
+  }
 }

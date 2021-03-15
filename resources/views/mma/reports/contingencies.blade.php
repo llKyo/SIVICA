@@ -20,8 +20,8 @@ color: white;
 </style>
 <div class="sixteen wide column">
 
-<h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Informe Contingencias por Estacion / Mes / Año</h4>
-<small style="display:none" class="header_export">Mantenciones  Estacion :: {{ $station }} | Año :: {{ $year == 'all' ? 'Todos' : $year }} | Mes ::{{ $month == 'all' ? 'Todos' : $month}} </small>
+<h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Informe Contingencias por Estacion / Año / Periodo / Parámetro / Equipo</h4>
+{{-- <small style="display:none" class="header_export">Mantenciones  Estacion :: {{ $station }} | Año :: {{ $year == 'all' ? 'Todos' : $year }} | Mes ::{{ $month == 'all' ? 'Todos' : $month}} </small> --}}
 <div class="ui blue label">
   <i class="marker icon"></i>
   Estacion :
@@ -58,7 +58,7 @@ color: white;
             </tr>
         </thead>
         <tbody>
-                @forelse($maintenances as $maintenance)
+                {{-- @forelse($maintenances as $maintenance)
                 <tr>
                 <td>{{ $maintenance->year_mma}}</td>
                 <td>{{ $maintenance->month_mma}}</td>
@@ -97,7 +97,7 @@ color: white;
                 @empty
 
 
-                @endforelse
+                @endforelse --}}
         </tbody>
     </table>
 </div>

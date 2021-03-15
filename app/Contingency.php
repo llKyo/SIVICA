@@ -6,10 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contingency extends Model
 {
-    //protected $fillable = ['name_id','brand', 'model', 'sn', 'description', 'type_id','station_id','state','owner'];
+    protected $fillable = [
+        'anomaly_date',
+        'visit_date',
+        'tracing',
+        'parameter',
+        'ns',
+        'causes_power_outage',
+        'cause_failure',
+        'another_cause',
+        'solve_on_visit',
+        'manage_action',
+    ];
+
+    
+
     public function document()
     {
-      return $this->belongTo('App\Document');
+        return $this->belongTo('App\Document');
+    }
+
+    public function station()
+    {
+        return $this->belongsTo('App\Station');
     }
 
 }

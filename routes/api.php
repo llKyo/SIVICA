@@ -245,19 +245,28 @@ Route::get('/documents/period/{period}/user/{user_id}',function ($period,$user_i
                 if(date('Y-m-d') < $f->period->end_restriction_date){
                     $buttons.='<a class="ui mini icon defaut button info-modal-link pop" href="/documents/'.$f->id.'/edit"  title="Editar" style="float:left;" data-content="Editar Registro!"><i class="icon blue edit"></i></a>';
                 }
+
+                //Dudas sobre la ubicación por rol
+                if ($f->contingency_id != null) {
+                    //Ver contingencia ya existente
+                    $contingency = '<a href="/contingencies/'.$f->contingency_id. '">Ver</a>';
+                } else {
+                    //Crear una contingencia
+                    //$contingency = $f->id;
+                    $contingency = '<a href="/contingencies/'.$f->id. '">Crear</a>';
+                }
+            } else {
+                if ($f->contingency_id != null) {
+                    //Ver contingencia ya existente
+                    $contingency = '<a href="/contingencies/'.$f->contingency_id. '">Ver</a>';
+                } else {
+                    $contingency = 'No hay contingencia';
+                }
             }
 
         $buttons.='<a class="ui mini icon defaut button " href="/documents/'.$f->id.'/edit_comments"  title="Comentar y/o Asignar a Mantencion" style="float:left;"><i class="icon blue comment"></i><i class="plus left icon"></i><i class="green calendar icon"></i></a>';
         
-        //Dudas sobre la ubicación por rol
-        if ($f->contingency_id != null) {
-            //Ver contingencia ya existente
-            $contingency = '<a href="/contingencies/'.$f->contingency_id. '">Ver</a>';
-        } else {
-            //Crear una contingencia
-            //$contingency = $f->id;
-            $contingency = '<a href="/contingencies/'.$f->id. '">Crear</a>';
-        }
+        
             
 
         }  

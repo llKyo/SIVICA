@@ -15,7 +15,7 @@ class AddContingencyIdToDocumentsTable extends Migration
     {
         Schema::table('documents', function(Blueprint $table){
 
-            $table->interger('contingency_id')->nullable();
+            $table->integer('contingency_id')->nullable();
 
         });
     }

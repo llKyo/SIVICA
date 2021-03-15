@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Period;
 use \DB;
 
 class ReportsController extends Controller
@@ -11,6 +12,7 @@ class ReportsController extends Controller
     {
       return view('mma.reports.index')
             ->with('stations', \App\Station::all())
+            ->with('periods', Period::all())
             ->with('years', DB::table('maintenances')->select(DB::raw('year_mma as date'))->distinct()->get());
     }
 

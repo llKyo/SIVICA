@@ -16,15 +16,17 @@ class CreateContingenciesTable extends Migration
         Schema::create('contingencies', function (Blueprint $table) {
             $table->increments('id');
             $table->date('anomaly_date');
-            $table->string('first_visit');
-            $table->string('Parameter');
+            $table->date('visit_date');
+            $table->string('tracing');
+            $table->string('parameter');
             $table->string('ns');
-            $table->string('communication');
+            $table->string('causes_power_outage');
             $table->string('cause_failure');
             $table->string('another_cause');
             $table->string('solve_on_visit'); 
             $table->string('manage_action');
 
+            $table->integer('station_id')->unsigned()->nullable(); //foreing
             $table->timestamps();
         });
     }

@@ -21,6 +21,15 @@
         <strong>Mantenciones</strong> sin verificacion en el mes en Curso! ( <strong>{{ $maintenances->first()->month_mma }}</strong>  )
       </div>
       @endif
+      <div class="ui floating  warning message">
+        <i class="close icon"></i>
+        Atencion! <strong>Faltan</strong> los siguientes documentos correlativos:
+        <ul>
+          @foreach ($faltantes as $f)
+              <li> {{$f}} </li>
+          @endforeach
+        </ul>
+      </div>
     @endif
       @if($period->count() > 0)
       @if($period->last()->documents->count() > 0)

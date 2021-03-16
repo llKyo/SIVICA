@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Document;
+use App\Station;
 
 class StatisticsController extends Controller
 {
@@ -71,6 +73,66 @@ class StatisticsController extends Controller
           
         }
         
+       
+        // $documents = Document::all()->where('station_id', 2)->sortBy('code');
+        // $documents = Document::where('station_id', 2)->get()->groupBy('code')->sortBy('code');
+
+        
+        // $stations = Station::all();
+        // foreach ($stations as $station) {
+        //     $documents = Document::where('station_id', $station->id)->get()->sortBy('code')->groupBy('code');
+        
+        //     $i = $documents->first()[0]->code;
+            
+        //     for ($i; $i < $documents->last()[0]->code; $i++) { 
+        //         if (!isset($documents[$i][0])) {
+        //              $alerta .= 'No se a encontrado el documento #' . $i . 'en la estación #' . $station->id ."<br>";
+        //         }
+        //     }
+        // }
+
+        // return $alerta;
+
+        $faltantes = collect();
+        $documents = Document::where('station_id', 2)->get()->sortBy('code')->groupBy('code');
+        
+        for ($i = $documents->first()[0]->code; $i < $documents->last()[0]->code; $i++) { 
+            if (!isset($documents[$i][0])) {
+                $faltantes->push('Documento #' . $i . ' de la estacion ' . 'Arica');
+            }
+        }
+        
+
+        
+
+
+
+        // for ($i= $documents->first()->code; $i < $documents->last()->code; $i++) { 
+        //     $d = Document::where('code', $i)->where('station_id',2)->get();
+        //      $alerta .= $d->code;
+        //     if ($d === null) {
+        //         $alerta .= 'Documento ' . $i . ' no existe';
+        //     }
+        // }
+        
+        
+
+        // foreach($documents as $documento)
+        // {
+            
+        //     do {
+                
+        //         if ($documento->code != $i) {
+        //             $alerta .= 'No se a encontrado el documento #' . $documento->code . "<br>";
+                    
+        //         }
+        //         $i++;
+        //     } while ($documento->code == $i);
+        // }
+        
+        // return $alerta;
+        
+
         $maintenances = \App\Maintenance::where('execution_date', null )->where('year_mma',\Carbon\Carbon::now()->year)->where('month_mma',$month_span);
             
         return view('mma.statistics.index')
@@ -84,6 +146,8 @@ class StatisticsController extends Controller
             ->with('elements_count',\App\Element::all()->count())
             ->with('elements_enable',\App\Element::where('state','enable')->count())
             ->with('maintenances',$maintenances)
-            ->with('elements_disabled',\App\Element::where('state','disable')->count());
+            ->with('elements_disabled',\App\Element::where('state','disable')->count())
+            ->with('faltantes', $faltantes);
+
     }
 }

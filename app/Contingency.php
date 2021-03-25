@@ -23,12 +23,9 @@ class Contingency extends Model
 
     public function document()
     {
-        return $this->belongTo('App\Document');
+        return $this->hasOne('App\Document');
     }
 
-    public function station()
-    {
-        return $this->belongsTo('App\Station');
-    }
+    
 
 }

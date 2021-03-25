@@ -80,9 +80,10 @@ class ContingencyController extends Controller
      * @param  \App\Contingency  $contingency
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contingency $contingency)
+    public function edit($id)
     {
-        //
+        // return Contingency::find($id);
+        return view('mma.contingencies.edit')->with('contingency', Contingency::find($id));
     }
 
     /**
@@ -92,9 +93,11 @@ class ContingencyController extends Controller
      * @param  \App\Contingency  $contingency
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contingency $contingency)
+    public function update(Request $request, $id)
     {
-        //
+        $contingency = Contingency::find($id);
+        $contingency->update($request->all());
+        return redirect('/documents');
     }
 
     /**
@@ -103,8 +106,12 @@ class ContingencyController extends Controller
      * @param  \App\Contingency  $contingency
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contingency $contingency)
+    public function destroy($id)
     {
-        //
+        $contingency = Contingency::find($id);
+        //TODO: borrar en la relación con Document
+        $contingency->delete();
+        return redirect('/documents');
+
     }
 }

@@ -73,26 +73,8 @@ class StatisticsController extends Controller
           
         }
         
-       
-        // $documents = Document::all()->where('station_id', 2)->sortBy('code');
-        // $documents = Document::where('station_id', 2)->get()->groupBy('code')->sortBy('code');
-
-        
-        // $stations = Station::all();
-        // foreach ($stations as $station) {
-        //     $documents = Document::where('station_id', $station->id)->get()->sortBy('code')->groupBy('code');
-        
-        //     $i = $documents->first()[0]->code;
-            
-        //     for ($i; $i < $documents->last()[0]->code; $i++) { 
-        //         if (!isset($documents[$i][0])) {
-        //              $alerta .= 'No se a encontrado el documento #' . $i . 'en la estación #' . $station->id ."<br>";
-        //         }
-        //     }
-        // }
-
-        // return $alerta;
-
+   
+        // Identifica los códigos correlativos faltantes de los documentos de una estación
         $faltantes = collect();
         $documents = Document::where('station_id', 2)->get()->sortBy('code')->groupBy('code');
         
@@ -101,36 +83,7 @@ class StatisticsController extends Controller
                 $faltantes->push('Documento #' . $i . ' de la estacion ' . 'Arica');
             }
         }
-        
-
-        
-
-
-
-        // for ($i= $documents->first()->code; $i < $documents->last()->code; $i++) { 
-        //     $d = Document::where('code', $i)->where('station_id',2)->get();
-        //      $alerta .= $d->code;
-        //     if ($d === null) {
-        //         $alerta .= 'Documento ' . $i . ' no existe';
-        //     }
-        // }
-        
-        
-
-        // foreach($documents as $documento)
-        // {
-            
-        //     do {
-                
-        //         if ($documento->code != $i) {
-        //             $alerta .= 'No se a encontrado el documento #' . $documento->code . "<br>";
-                    
-        //         }
-        //         $i++;
-        //     } while ($documento->code == $i);
-        // }
-        
-        // return $alerta;
+      
         
 
         $maintenances = \App\Maintenance::where('execution_date', null )->where('year_mma',\Carbon\Carbon::now()->year)->where('month_mma',$month_span);

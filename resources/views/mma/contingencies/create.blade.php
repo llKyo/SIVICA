@@ -12,8 +12,6 @@
     {{ csrf_field() }}
     <input type="hidden" name="document_id" value="{{ $document_id }}">
 
-    
-
     <div class="three fields">
         <div class="field">
             <label>Fecha de la anomalía</label>
@@ -33,8 +31,29 @@
         </div>
 
         <div class="field">
-            <label>Parámetro</label>
-                <input class="ui input" type="text" name="parameter" placeholder="...">
+            <label>Parametro</label>
+            <select class="ui search dropdown" name="parameter" required>
+                <option value="OTRO" >OTRO (Ninguno de la lista)</option>
+                <option value="MP" >MP</option>
+                <option value="O3" >O3</option>
+                <option value="CO" >CO</option>
+                <option value="NO/NOx" >NO/NOx</option>
+                <option value="SO2" >SO2</option>
+                <option value="WS" >WS</option>
+                <option value="WD" >WD</option>
+                <option value="RS" >RS</option>
+                <option value="THR" >THR</option>
+                <option value="P°" >P°</option>
+                <option value="PLUVIO" >PLUVIO</option>
+                <option value="DILUTOR" >DILUTOR</option>
+                <option value="GAZ" >GAZ</option>
+                <option value="LOGGER" >LOGGER</option>
+                <option value="MODEM" >MODEM</option>
+                <option value="PC" >PC</option>
+                <option value="AA" >AA</option>
+                <option value="UPS" >UPS</option>
+                <option value="BOMBA" >BOMBA</option>
+            </select>
         </div>
 
         <div class="field">

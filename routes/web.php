@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () { //Auth Users
     Route::resource('/certifications','CertificationController');
     
     
-    Route::get('/contingencies/{document_id}', 'ContingencyController@create');
+    Route::get('/new_contingency/{document_id}', 'ContingencyController@create');
     Route::resource('/contingencies','ContingencyController', ['except' => ['create']]);
 
 //rutas para administrador y observador
@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth'], function () { //Auth Users
     Route::post('/reports/maintenances','ReportsController@reportMaintenances');
     Route::post('/reports/elements','ReportsController@reportElements');
     Route::post('/reports/elements_nodiag','ReportsController@reportElementsNoDiag');
+    Route::post('/reports/contingencies','ReportsController@reportContingencies');
+
+    
 
 
   Route::group(['middleware' => 'company'], function () { //Rol Users == company

@@ -4,7 +4,7 @@
 <div class="sixteen wide column">
 
   <h4 class="ui horizontal dividing header"><i class="configure icon"></i>Assignar Mantencion -> Documento : {{$document->label}}</h4>
-        <form class="ui form" action="/documents/{{ $document->id }}/maintenances" method="post"  enctype="multipart/form-data">
+    <form class="ui form" action="/documents/{{ $document->id }}/maintenances" method="post"  enctype="multipart/form-data">
         {{ csrf_field() }}
 
     <div class="row">
@@ -47,7 +47,12 @@
                     <textarea  name="mma_comment"  rows="2"  required>{{$document->mma_comment}}</textarea>
                 </div>
             </div>
-    
+            <div class="field">
+                <label>Referencias</label>
+                <div class="ui mini input">
+                    <textarea  name="another_comment"  rows="2" >{{$document->another_comment}}</textarea>
+                </div>
+            </div>
 
         <br>
 

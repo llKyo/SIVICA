@@ -20,24 +20,33 @@ color: white;
 </style>
 <div class="sixteen wide column">
 
-<h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Informe Contingencias por Estacion / Año / Periodo / Parámetro / Equipo</h4>
-{{-- <small style="display:none" class="header_export">Mantenciones  Estacion :: {{ $station }} | Año :: {{ $year == 'all' ? 'Todos' : $year }} | Mes ::{{ $month == 'all' ? 'Todos' : $month}} </small> --}}
+<h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Informe Contingencias por Estacion / Fecha / Parametro</h4>
+<small style="display:none" class="header_export">Informe de contingencias :: {{ $station == 'all'? 'Todas' : $station}} 
+    | {{$datefilter==null? ($year == 'all' ? 'Año :: Todos' : $year) : ($datefilter == 'all' ? 'Equipos :: Todos' : 'Equipos ::'. $datefilter) }}
+    | Parametro :: {{ $name == 'all'? 'Todos':  $name}} </small>
 <div class="ui blue label">
   <i class="marker icon"></i>
   Estacion :
-  <span class="detail">{{ $station }}</span>
+  <span class="detail">{{ $station == 'all'? 'Todas' : $station }}</span>
 </div>
 
-<div class="ui red label">
-  <i class="calendar icon"></i>
-  Año :
-  <span class="detail">{{ $year == 'all' ? 'Todos' : $year }}</span>
-</div>
-
-<div class="ui red label">
-  <i class="calendar icon"></i>
-  Mes :
-  <span class="detail">{{ $month == 'all' ? 'Todos' : $month}}</span>
+@if ($datefilter == null)
+    <div class="ui red label">
+        <i class="calendar icon"></i>
+        Año :
+        <span class="detail">{{ $year == 'all' ? 'Todos' : $year }}</span>
+    </div>
+@else
+    <div class="ui red label">
+        <i class="calendar icon"></i>
+        Fecha :
+        <span class="detail">{{ $datefilter == 'all' ? 'Todas' : $datefilter }}</span>
+    </div>
+@endif
+<div class="ui blue label">
+  <i class="cogs icon"></i>
+  Parametros :
+  <span class="detail">{{ $name == 'all'? 'Todos' : $name }}</span>
 </div>
 <br>
 <br>
@@ -45,59 +54,33 @@ color: white;
     <table class="ui celled table sortable datatable_button">
         <thead>
             <tr>
-                <th><i class="calendar icon"></i> Año </th>
-                <th><i class="calendar icon"></i> Mes </th>
-                <th>Estacion/Equipo</th>
-
-                <th>Actividad</th>
-                <th>Estado</th>
-                <th>Validacion</th>
-                <th><i class="icon comment"></i> MMA</th>
-                <th><i class="icon comment"></i> Empresa</th>
-
+                <th>Fecha Anomalía</th>
+                <th>Fecha visita</th>
+                <th>Seguimiento</th>
+                <th>Parametro</th>
+                <th>N/S</th>
+                <th>Causa de corte</th>
+                <th>Causa de fallo</th>
+                <th>Otra Causa</th>
+                <th>Resuelve en visita</th>
+                <th>Manage Action</th>
             </tr>
         </thead>
-        <tbody>
-                {{-- @forelse($maintenances as $maintenance)
+        <tbody>    
+            @foreach ($contingencies as $c)
                 <tr>
-                <td>{{ $maintenance->year_mma}}</td>
-                <td>{{ $maintenance->month_mma}}</td>
-                <td>{{ $maintenance->station->name}} <br> {{ $maintenance->element!=null ? $maintenance->element->name : '-'}}</td>
-
-                <td>{{ $maintenance->activity->name}}</td>
-                <td>
-                @if($maintenance->state == 'scheduled')
-                    Calendarizada
-                @endif
-                @if($maintenance->state == 'in_process')
-                    Calendarizada
-                @endif
-                @if($maintenance->state == 'finished')
-                    Calendarizada
-                @endif
-                </td>
-                <td><small>
-                    {{ $maintenance->execution_date  }}
-
-                    @forelse($maintenance->documents as $document)
-                            <?php $path_array = explode("/", $document->path);?>
-                            {{ array_pop($path_array) }} <br>
-                            <a href="{{ url('/docs/reports/'.$document->path)}}">
-                                
-                                <i class="large download icon"></i>
-                            </a>
-                    @empty
-                     -
-                    @endforelse
-                    </small>
-                </td>
-                <td>{{ $maintenance->mma_comment }}</td>
-                <td>{{ $maintenance->company_comment}}</td>
+                <td>{{$c->anomaly_date}}</td>
+                <td>{{$c->visit_date}}</td>
+                <td>{{$c->tracing}}</td>
+                <td>{{$c->parameter}}</td>
+                <td>{{$c->ns}}</td>
+                <td>{{$c->causes_power_outage}}</td>
+                <td>{{$c->cause_failure}}</td>
+                <td>{{$c->another_cause}}</td>
+                <td>{{$c->solve_on_visit}}</td>
+                <td>{{$c->manage_action}}</td>
                 </tr>
-                @empty
-
-
-                @endforelse --}}
+            @endforeach
         </tbody>
     </table>
 </div>

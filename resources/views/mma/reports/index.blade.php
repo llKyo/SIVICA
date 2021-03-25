@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 <div class="sixteen wide column">
 <h2>Informes & Busquedas</h2>
 <h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Mantenciones por Estacion / Mes / Año</h4>
@@ -109,13 +116,13 @@
 
 <h4 class="ui horizontal dividing header"><i class="exclamation triangle icon"></i>Contingencias Operacionales</h4>
 
-<form class="ui form" action="/reports/elements" method="post" enctype="multipart/form-data">
+<form class="ui form" action="/reports/contingencies" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
-    <div class="five  fields">
+    <div class="four  fields">
         <div class="field">
             <label>Estacion</label>
             <select class="ui search dropdown" name="station">
-                    <option value="all">Todas</option>
+                <option value="all">Todas</option>
                 @forelse($stations as $station)
                     <option value="{{$station->id}}">{{$station->name}}</option>
                 @empty
@@ -126,7 +133,7 @@
         <div class="field">
             <label>Año</label>
             <select class="ui search dropdown" name="year">
-                    <option value="all">Todos</option>
+                <option value="all">Todos</option>
                 @forelse($years as $year)
                     <option value="{{$year->date}}">{{$year->date}}</option>
                 @empty
@@ -135,23 +142,11 @@
             </select>
         </div>
         <div class="field">
-            <label>Periodos</label>
-            <select class="ui  dropdown"  id="periods">
-                <option value="all" >Todos</option>
-                @foreach($periods as $period)
-                <option value="{{ $period->id }}">{{ $period->description }}</option>
-                @endforeach
-            </select>
+            <label>Fecha (Desde - Hasta)</label>
+            <input type="text" name="datefilter" value="" placeholder="Todas"/>
         </div>
         <div class="field">
-            <label>Parametro** TODO</label>
-            <select class="ui search dropdown" name="name" required>
-                <option value="all" >Todos</option>
-
-            </select>
-        </div>
-        <div class="field">
-            <label>Equipo</label>
+            <label>Parametro</label>
             <select class="ui search dropdown" name="name" required>
                 <option value="all" >Todos</option>
                 <option value="OTRO" >OTRO (Ninguno de la lista)</option>
@@ -212,6 +207,62 @@
     </button>
 </form>-->
 
+<script type="text/javascript">
+$(function() {
+
+  $('input[name="datefilter"]').daterangepicker({
+      locale: {
+        
+    },
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Limpiar',
+          format: "DD/MM/YYYY",
+          separator: " - ",
+          applyLabel: "Aplicar",
+          cancelLabel: "Cancelar",
+          fromLabel: "De",
+          toLabel: "Hasta",
+          customRangeLabel: "Custom",
+          weekLabel: "W",
+          daysOfWeek: [
+            "Dom",
+            "Lun",
+            "Mar",
+            "Mier",
+            "Juev",
+            "Vier",
+            "Sab"
+        ],
+        monthNames: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ],
+        firstDay: 1
+      }
+  });
+
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+  });
+
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+  
+});
+</script>
 </div>{{-- div From App--}}
 </div>{{-- div From App--}}
 

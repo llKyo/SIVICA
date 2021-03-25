@@ -142,6 +142,7 @@ class DocumentController extends Controller
         }
         
         $document->mma_comment = $request->mma_comment;
+        $document->another_comment = $request->another_comment;
         $document->save();
         
         return redirect('/documents');

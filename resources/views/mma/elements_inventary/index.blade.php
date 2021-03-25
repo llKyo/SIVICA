@@ -67,11 +67,19 @@
 
             </div>
             <div class="field">
-                <label>Descripcion</label>
+                <label>N/I</label>
                 <div class="ui  input">
-                    <textarea  rows="2" name="description" required></textarea>
+                    <input type="text" name="ni" placeholder="Ingrese N/I" required>
                 </div>
             </div>
+            <div class="field">
+                <label>Garantia</label>
+                <div class="ui  input">
+                    <input type="text" name="warranty" placeholder="Ingrese Garantía" required>
+                </div>
+            </div>
+        </div>
+        <div class="three fields">
             <div class="field">
                 <label>Estacion Asociada</label>
 
@@ -84,6 +92,12 @@
                         @endforelse
                     </select>
 
+            </div>
+            <div class="field">
+                <label>Descripcion</label>
+                <div class="ui  input">
+                    <textarea  rows="2" name="description" required></textarea>
+                </div>
             </div>
         </div>
         <button class="ui right floated small green labeled icon button" type="submit" data-content="Crear nuevo equipo">
@@ -99,6 +113,8 @@
                 <th>Marca</th>
                 <th>Modelo</th>
                 <th>N/S</th>
+                <th>N/I</th>
+                <th>Garantia</th>
                 <th>Tipo</th>
                 <th>Propietario</th>
                 <th>Estado</th>
@@ -114,6 +130,8 @@
                 <th>Marca</th>
                 <th>Modelo</th>
                 <th>N/S</th>
+                <th>N/I</th>
+                <th>Garantia</th>
                 <th>Tipo</th>
                 <th>Propietario</th>
                 <th>Estado</th>
@@ -130,6 +148,8 @@
                 <td>{{ $element->brand }}</td>
                 <td>{{ $element->model }}</td>
                 <td>{{ $element->sn }}</td>
+                <td>{{ $element->ni }}</td>
+                <td>{{ $element->warranty == "" ? "n.a." : $element->warranty}}</td>
                 <td>{{ $element->type == null ? ' - ': $element->type->name }}</td>
                 <td>{{ $element->owner }}</td>
                 <td>{{ $element->state == 'enable' ? 'Operativo' : 'No Operativo' }}</td>

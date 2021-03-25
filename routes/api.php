@@ -253,7 +253,7 @@ Route::get('/documents/period/{period}/user/{user_id}',function ($period,$user_i
                 } else {
                     //Crear una contingencia
                     //$contingency = $f->id;
-                    $contingency = '<a href="/contingencies/'.$f->id. '">Crear</a>';
+                    $contingency = '<a href="/new_contingency/'.$f->id. '">Crear</a>';
                 }
             } else {
                 if ($f->contingency_id != null) {

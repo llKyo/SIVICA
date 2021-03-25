@@ -18,9 +18,9 @@ class Document extends Model
       return $this->belongsTo('App\Period');
   }
 
-  public function contingencies()
+  public function contingency()
   {
-      return $this->hasMany('App\Contingency');
+      return $this->belongsTo('App\Contingency');
   }
 
   public function maintenances()

@@ -5,7 +5,7 @@
     <h2>Certificacion de Patrones</h2>
 
     <h4 class="ui horizontal dividing  header"><i class="certificate icon"></i>Lista</h4>
-    <table class="ui celled table sortable">
+    <table class="ui celled table sortable" id="certifications_table">
         <thead>
             <tr>
                 <th> ----- Fecha -----</th>
@@ -20,6 +20,20 @@
                 @endif
             </tr>
         </thead>
+        <tfoot>
+            <tr>
+                <th> ----- Fecha -----</th>
+                <th>Tipo / Marca</th>
+                <th>Numero Serie</th>
+                <th>Vigencia</th>
+                <th>Archivo</th>
+                <th>Observacion Empresa</th>
+                <th>Observacion MMA</th>
+                @if(Auth::user()->rol !='observer')
+                <th>Acciones</th>
+                @endif
+            </tr>
+        </tfoot>
         <tbody>
             @forelse($certifications as $certification)
             <tr>
@@ -80,5 +94,30 @@
 </div>{{-- div From App--}}
 </div>{{-- div From App--}}
 
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#certifications_table tfoot th').each( function () {
+            var title = $(this).text();
+            var w = $(this).width() - 5;
+            $(this).html( '<input type="text" placeholder="Buscar" style="width:'+w+'px;"/>' );
+        });
+
+    var table = $('#certifications_table').DataTable();
+
+    table.columns().every( function () {
+        var that = this;
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+            });
+    });
+
+
+
+});
 
 @endsection

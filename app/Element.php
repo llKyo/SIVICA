@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Element extends Model
 {
-    protected $fillable = ['name_id','brand', 'model', 'sn', 'description', 'type_id','station_id','state','owner'];
+    protected $fillable = ['name_id','brand', 'model', 'sn', 'description', 'type_id','station_id','state','owner', 'ni', 'warranty' ];
 
   public function incidents()
   {

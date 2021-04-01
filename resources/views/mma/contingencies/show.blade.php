@@ -12,7 +12,7 @@
 
         <li> <span class="ui label red">Fecha de la Anomalía</span> : {{ $contingency->anomaly_date }} </li>
         <li> <span class="ui label blue">Fecha de visita</span> : {{ $contingency->visit_date }} </li>
-        <li> <span class="ui label blue">Seguimiento</span> : {{ $contingency->tracing }} </li>
+        <li> <span class="ui label blue">Seguimiento</span> : {{ $contingency->tracking }} </li>
         <li> <span class="ui label blue">Parametro</span> : {{ $contingency->parameter }}</li>
         <li> <span class="ui label blue">N/S</span> : {{ $contingency->ns }}</li>
         <li> <span class="ui label blue">Causa de corte (Energía/Comunicación)</span> : {{ $contingency->causes_power_outage }}</li>

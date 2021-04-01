@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Document;
 use App\Station;
+use App\missing_document;
 
 class StatisticsController extends Controller
 {
@@ -73,17 +74,7 @@ class StatisticsController extends Controller
           
         }
         
-   
-        // Identifica los códigos correlativos faltantes de los documentos de una estación
-        $faltantes = collect();
-        $documents = Document::where('station_id', 2)->get()->sortBy('code')->groupBy('code');
-        
-        for ($i = $documents->first()[0]->code; $i < $documents->last()[0]->code; $i++) { 
-            if (!isset($documents[$i][0])) {
-                $faltantes->push('Documento #' . $i . ' de la estacion ' . 'Arica');
-            }
-        }
-      
+        $faltantes = missing_document::all()->sortBy('station_id');    
         
 
         $maintenances = \App\Maintenance::where('execution_date', null )->where('year_mma',\Carbon\Carbon::now()->year)->where('month_mma',$month_span);

@@ -24,6 +24,10 @@
 <script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
 <script src="//cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 <script type="text/javascript">
 window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};
 $(document).ready(function() {

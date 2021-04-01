@@ -27,7 +27,7 @@
     <div class="three fields">
         <div class="field">
             <label>Visita de seguimiento a contingencia o primera visita</label>
-                <input class="ui input" type="text" name="tracing" placeholder="...">
+                <input class="ui input" type="text" name="tracking" placeholder="...">
         </div>
 
         <div class="field">

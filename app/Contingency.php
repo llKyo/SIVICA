@@ -9,7 +9,7 @@ class Contingency extends Model
     protected $fillable = [
         'anomaly_date',
         'visit_date',
-        'tracing',
+        'tracking',
         'parameter',
         'ns',
         'causes_power_outage',

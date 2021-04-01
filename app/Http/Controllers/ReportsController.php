@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \App\Period;
 use \DB;
 use \App\Contingency;
+use \App\Missing_document as Missings;
 use \Carbon\Carbon as Carbon;
 
 class ReportsController extends Controller
@@ -149,23 +150,27 @@ class ReportsController extends Controller
     {
         $contingencies = collect();
         if ($request->year != 'all') {
-            # year get
+
             $date = Carbon::createFromDate($request->year, 1, 1);
             $dayStart = $date->copy()->startOfYear();
             $dayEnd = $date->copy()->endOfYear();
+
             if ($request->station != 'all') {
-                # station get
                 
                 if ($request->name != 'all') {
-                    # type get
+
                     $documents = \App\Station::find($request->station)->documents->where('contingency_id', '!=', null);
                     foreach ($documents as $d) {
                         $contingencies->push(Contingency::find($d->contingency_id));
                     }
+
                     $contingencies = $contingencies->where('parameter', $request->name);
+                    
                     $contingencies = $contingencies->where('anomaly_date', '>=',  $dayStart);
                     $contingencies = $contingencies->where('anomaly_date', '<=',  $dayEnd);
+
                 } else {
+
                     $documents = \App\Station::find($request->station)->documents->where('contingency_id', '!=', null);
                     foreach ($documents as $d) {
                         $contingencies->push(Contingency::find($d->contingency_id));
@@ -175,12 +180,14 @@ class ReportsController extends Controller
                 }
             } else {
                 if ($request->name != 'all') {
-                    # type gate
+                    
                     $contingencies = Contingency::all();
                     $contingencies = $contingencies->where('parameter', $request->name);
                     $contingencies = $contingencies->where('anomaly_date', '>=',  $dayStart);
                     $contingencies = $contingencies->where('anomaly_date', '<=',  $dayEnd);
+
                 } else {
+
                     $contingencies = Contingency::all();
                     $contingencies = $contingencies->where('anomaly_date', '>=',  $dayStart);
                     $contingencies = $contingencies->where('anomaly_date', '<=',  $dayEnd);
@@ -192,8 +199,10 @@ class ReportsController extends Controller
                 $fechas    = explode ( ' - ' , $request->datefilter);
                 $dateStart = Carbon::parse($fechas[0]);
                 $dateEnd   = Carbon::parse($fechas[1]);
+
                 if ($request->station != 'all') {
                     if ($request->name != 'all') {
+
                         $documents = \App\Station::find($request->station)->documents->where('contingency_id', '!=', null);
                         foreach ($documents as $d) {
                             $contingencies->push(Contingency::find($d->contingency_id));
@@ -201,23 +210,26 @@ class ReportsController extends Controller
                         $contingencies = $contingencies->where('parameter', $request->name);
                         $contingencies = $contingencies->where('anomaly_date', '>=',  $dateStart);
                         $contingencies = $contingencies->where('anomaly_date', '<=',  $dateEnd);
+
                     } else {
+
                         $documents = \App\Station::find($request->station)->documents->where('contingency_id', '!=', null);
                         foreach ($documents as $d) {
                             $contingencies->push(Contingency::find($d->contingency_id));
                         }
                         $contingencies = $contingencies->where('anomaly_date', '>=',  $dateStart);
                         $contingencies = $contingencies->where('anomaly_date', '<=',  $dateEnd);
-
-                        
                     }
                 } else {
                     if ($request->name != 'all') {
+
                         $contingencies = Contingency::all();
                         $contingencies = $contingencies->where('parameter', $request->name);
                         $contingencies = $contingencies->where('anomaly_date', '>=',  $dateStart);
                         $contingencies = $contingencies->where('anomaly_date', '<=',  $dateEnd);
+
                     } else {
+                        
                         $contingencies = Contingency::all();
                         $contingencies = $contingencies->where('anomaly_date', '>=',  $dateStart);
                         $contingencies = $contingencies->where('anomaly_date', '<=',  $dateEnd);
@@ -227,11 +239,13 @@ class ReportsController extends Controller
             } else {
                 if ($request->station != 'all') {
                     if ($request->name != 'all') {
+
                         $documents = \App\Station::find($request->station)->documents->where('contingency_id', '!=', null);
                         foreach ($documents as $d) {
                             $contingencies->push(Contingency::find($d->contingency_id));
                         }
                         $contingencies = $contingencies->where('parameter', $request->name);
+
                     } else {
                         $documents = \App\Station::find($request->station)->documents->where('contingency_id', '!=', null);
                         foreach ($documents as $d) {
@@ -240,8 +254,10 @@ class ReportsController extends Controller
                     }
                 } else {
                     if ($request->name != 'all') {
+
                         $contingencies = Contingency::all();
                         $contingencies = $contingencies->where('parameter', $request->name);
+
                     } else {
                         $contingencies = Contingency::all();
                     }
@@ -265,43 +281,18 @@ class ReportsController extends Controller
             ->with('year', $request->year)
             ->with('name', $request->name)
             ->with('datefilter', $request->datefilter);
+    }
 
-        //B 2
-        // REQUEST
-        // station: "2",
-        // year: "2017",
-        // datefilter: null,
-        // name: "MP"
-       $data = Contingency::select('contingencies.*')
-            ->join('documents AS d', 'd.contingency_id', '=', 'contingencies.id')
-            ->join('stations AS s', 's.id', '=', 'd.station_id')
-            ->join('elements AS e', 's.id', '=', 'e.station_id')
-            ->join('names AS n', 'n.id', '=', 'e.name_id')
-            ->where('s.id', '=', $request->station)
-            ->where('n.name', '=', $request->name)
-            ->get();
-
-        return $data;
-        
-        //B 3
-        if($request->year != 'all'){
-            $contingencies = Contingency::all();
-        } else if($request->datefilter != null){
-
-            $fechas    = explode ( ' - ' , $request->datefilter);
-            $dateStart = Carbon::parse($fechas[0])->format('Y-m-d');
-            $dateEnd   = Carbon::parse($fechas[1])->format('Y-m-d');
-
-            $contingencies = Contingency::whereBetween('anomaly_date', [$dateStart, $dateEnd])->get();
-            
-            
-        }else{
-            $contingencies = Contingency::all();
+    public function reportMissings(Request $request)
+    {
+        if($request->station != 'all')
+        {
+            $correlatives = Missings::where('station_id', $request->station)->get();
         }
-        
-        
-        return $contingencies;
-        
+        else
+        {
+            $correlatives = Missings::all();
+        }
 
         if($request->station != 'all')
         {
@@ -311,9 +302,9 @@ class ReportsController extends Controller
         {
             $station = 'Todas';
         }
-
-
         
-        
+        return view('mma.reports.missings')
+            ->with('correlatives', $correlatives)
+            ->with('station', $station);
     }
 }

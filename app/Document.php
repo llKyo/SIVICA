@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    protected $fillable = ['label','code','version','description','path','station_id','period_id'];
+    protected $fillable = ['label','code','version','description','path','station_id','period_id', 'contingency_id'];
 
   public function station()
   {

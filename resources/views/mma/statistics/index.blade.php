@@ -21,15 +21,25 @@
         <strong>Mantenciones</strong> sin verificacion en el mes en Curso! ( <strong>{{ $maintenances->first()->month_mma }}</strong>  )
       </div>
       @endif
-      <div class="ui floating  warning message">
-        <i class="close icon"></i>
-        Atencion! <strong>Faltan</strong> los siguientes documentos correlativos:
-        <ul>
-          @foreach ($faltantes as $f)
-              <li> {{$f}} </li>
-          @endforeach
-        </ul>
-      </div>
+      @if ($faltantes->count() > 0)
+        <div class="ui floating  warning message">
+          <i class="close icon"></i>
+          Atencion! <strong>Faltan</strong> 
+          <a class="ui label red">
+          {{ $faltantes->count() }}
+          </a>
+          documentos correlativos:
+          <ul>
+            @if ($faltantes->count() <= 15)
+              @foreach ($faltantes as $f)
+                <li> Documento <b>#{{$f->code}}</b> de la estacion <b>{{$f->name}}.</b></li>
+              @endforeach
+            @else
+                <li> Demasiados documentos para mostrar, acudir a la sección Informes para poder visualizarlos.</li>
+            @endif
+          </ul>
+        </div>
+      @endif
     @endif
       @if($period->count() > 0)
       @if($period->last()->documents->count() > 0)

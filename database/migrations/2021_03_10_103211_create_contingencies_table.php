@@ -17,7 +17,7 @@ class CreateContingenciesTable extends Migration
             $table->increments('id');
             $table->date('anomaly_date');
             $table->date('visit_date');
-            $table->string('tracing');
+            $table->string('tracking');
             $table->string('parameter');
             $table->string('ns');
             $table->string('causes_power_outage');

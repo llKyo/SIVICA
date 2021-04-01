@@ -30,7 +30,7 @@
     <div class="three fields">
         <div class="field">
             <label>Visita de seguimiento a contingencia o primera visita</label>
-                <input class="ui input" type="text" name="tracing" placeholder="..." value="{{ $contingency->tracing }}">
+                <input class="ui input" type="text" name="tracking" placeholder="..." value="{{ $contingency->tracking }}">
         </div>
 
         <div class="field">

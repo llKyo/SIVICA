@@ -1,12 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-
 <div class="sixteen wide column">
 <h2>Informes & Busquedas</h2>
 <h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Mantenciones por Estacion / Mes / Año</h4>
@@ -169,7 +163,6 @@
                 <option value="AA" >AA</option>
                 <option value="UPS" >UPS</option>
                 <option value="BOMBA" >BOMBA</option>
-
             </select>
         </div>
         
@@ -184,6 +177,31 @@
 </form>
 <br>
 
+<h4 class="ui horizontal dividing header"><i class="file icon"></i>Correlativos Faltantes</h4>
+
+<form class="ui form" action="/reports/missings" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <div class="two  fields">
+        <div class="field">
+            <label>Estacion</label>
+            <select class="ui search dropdown" name="station">
+                <option value="all">Todas</option>
+                @forelse($stations as $station)
+                    <option value="{{$station->id}}">{{$station->name}}</option>
+                @empty
+
+                @endforelse
+            </select>
+        </div>
+        
+
+    </div>
+
+    <button class="ui right floated small blue labeled icon button" type="submit" data-content="Buscar">
+        <i class="search icon"></i> Buscar
+    </button>
+</form>
+<br>
 
 <!--
 <h4 class="ui horizontal dividing header"><i class="exchange icon"></i>Equipos Retirados </h4>

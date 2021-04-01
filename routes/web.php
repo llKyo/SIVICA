@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () { //Auth Users
     Route::post('/reports/elements','ReportsController@reportElements');
     Route::post('/reports/elements_nodiag','ReportsController@reportElementsNoDiag');
     Route::post('/reports/contingencies','ReportsController@reportContingencies');
+    Route::post('/reports/missings','ReportsController@reportMissings');    
 
     
 

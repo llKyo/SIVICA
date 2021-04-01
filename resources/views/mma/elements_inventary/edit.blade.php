@@ -65,6 +65,20 @@
 
         </div>
     </div>
+    <div class="four fields">
+        <div class="field">
+            <label>Garantia</label>
+            <div class="ui  input">
+                <input type="date" name="warranty" placeholder="Ingrese Garantía" value="{{$element->warranty}}" required>
+            </div>
+        </div>
+        <div class="field">
+            <label>N/I</label>
+            <div class="ui  input">
+                <input type="text" name="ni" placeholder="Ingrese N/I" value="{{$element->ni}}" required>
+            </div>
+        </div>
+    </div>
     <div class="actions">
     <button class="ui right floated small green labeled cancel icon button" type="submit">
         <i class="lab icon"></i> Actualizar

@@ -39,26 +39,14 @@ class ContingencyController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
-        $contingency = Contingency::create([
-            'anomaly_date' => request('anomaly_date'),
-            'visit_date' => request('visit_date'),
-            'tracing' => request('tracing'),
-            'parameter' => request('parameter'),
-            'ns' => request('ns'),
-            'causes_power_outage' => request('causes_power_outage'),
-            'cause_failure' => request('cause_failure'),
-            'another_cause' => request('another_cause'),
-            'solve_on_visit' => request('solve_on_visit'),
-            'manage_action' => request('manage_action')
-            
-        ]);
-        
-        //TODO: Arreglar, no hace el cambio
+
+        $contingency = Contingency::create($request->all());
         $document = Document::find(request('document_id'));
-        $document->update([
-            'contingency_id'=> $contingency->id
-        ]);
+        $document->update(['contingency_id'=> $contingency->id]);
         $document->save();
+  
+        $action = 'Crea Contingencia | Fecha:'.$contingency->anomaly_date.' | Estacion: '.$document->station->name.' | Id : '.$contingency->id.'';
+        \App\Log::create(['user_name' => \Auth::user()->name ,'user_id' => \Auth::user()->id ,'action' => $action,'item' => 'Contingencias']);
 
         return redirect('/documents');
     }
@@ -97,6 +85,10 @@ class ContingencyController extends Controller
     {
         $contingency = Contingency::find($id);
         $contingency->update($request->all());
+
+        $action = 'Edita Estacion | Id: '.$contingency->id ;
+        \App\Log::create(['user_name' => \Auth::user()->name ,'user_id' => \Auth::user()->id ,'action' => $action,'item' => 'Contingencias']);
+        
         return redirect('/documents');
     }
 
@@ -109,7 +101,10 @@ class ContingencyController extends Controller
     public function destroy($id)
     {
         $contingency = Contingency::find($id);
-        //TODO: borrar en la relación con Document
+
+        $action = 'Elimina Contingencia | Id: '.$id;
+        \App\Log::create(['user_name' => \Auth::user()->name ,'user_id' => \Auth::user()->id ,'action' => $action,'item' => 'Contingencias']);
+
         $contingency->delete();
         return redirect('/documents');
 

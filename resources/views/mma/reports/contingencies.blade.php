@@ -54,16 +54,16 @@ color: white;
     <table class="ui celled table sortable datatable_button">
         <thead>
             <tr>
-                <th>Fecha Anomalía</th>
-                <th>Fecha visita</th>
+                <th>Fecha<br> Anomalía</th>
+                <th>Fecha<br> visita</th>
                 <th>Seguimiento</th>
                 <th>Parametro</th>
                 <th>N/S</th>
-                <th>Causa de corte</th>
-                <th>Causa de fallo</th>
-                <th>Otra Causa</th>
-                <th>Resuelve en visita</th>
-                <th>Manage Action</th>
+                <th>Causa <br>de corte</th>
+                <th>Causa <br>de fallo</th>
+                <th>Otra<br> Causa</th>
+                <th>Resuelve<br> en visita</th>
+                <th>Gestiona<br> Accion</th>
             </tr>
         </thead>
         <tbody>    
@@ -71,7 +71,7 @@ color: white;
                 <tr>
                 <td>{{$c->anomaly_date}}</td>
                 <td>{{$c->visit_date}}</td>
-                <td>{{$c->tracing}}</td>
+                <td>{{$c->tracking}}</td>
                 <td>{{$c->parameter}}</td>
                 <td>{{$c->ns}}</td>
                 <td>{{$c->causes_power_outage}}</td>

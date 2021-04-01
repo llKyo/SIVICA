@@ -75,7 +75,7 @@
             <div class="field">
                 <label>Garantia</label>
                 <div class="ui  input">
-                    <input type="text" name="warranty" placeholder="Ingrese Garantía" required>
+                    <input type="date" name="warranty" placeholder="Ingrese Garantía" required>
                 </div>
             </div>
         </div>

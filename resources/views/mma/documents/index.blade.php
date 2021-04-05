@@ -22,7 +22,6 @@
             </ul>
     </div>
     @endif
-
     <form class="ui form" action="/documents" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
 

@@ -101,10 +101,12 @@ class ContingencyController extends Controller
     public function destroy($id)
     {
         $contingency = Contingency::find($id);
+        $document = Document::where('contingency_id', $id);
 
         $action = 'Elimina Contingencia | Id: '.$id;
         \App\Log::create(['user_name' => \Auth::user()->name ,'user_id' => \Auth::user()->id ,'action' => $action,'item' => 'Contingencias']);
 
+        $document->update(['contingency_id' => null]);
         $contingency->delete();
         return redirect('/documents');
 

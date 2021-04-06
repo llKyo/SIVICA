@@ -108,7 +108,7 @@ class ContingencyController extends Controller
 
         $document->update(['contingency_id' => null]);
         $contingency->delete();
-        return redirect('/documents');
 
+        return redirect('/documents');
     }
 }

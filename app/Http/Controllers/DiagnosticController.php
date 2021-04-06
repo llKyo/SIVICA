@@ -57,7 +57,9 @@ class DiagnosticController extends Controller
         $action = 'Elimina Diagnostico | Id : '.$diagnostic->id.'' ;
         \App\Log::create(['user_name' => \Auth::user()->name ,'user_id' => \Auth::user()->id ,'action' => $action,'item' => 'Diagnosticos']);
         $destinationPath = public_path().'/docs/diagnostic_repair/'.$diagnostic->path; 
-        unlink($destinationPath);
+        if (file_exists($destinationPath)) {
+            unlink($destinationPath);
+        }
         $diagnostic->delete();
         return redirect('/diag_repair');
     }

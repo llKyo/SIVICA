@@ -23,15 +23,17 @@
     </ul>
     <br>
     <div class="actions">
-        <form action="/contingencies/{{ $contingency->id}}" method="POST">
+        <hr>
+        <a class="ui right floated small blue button" href="/documents">Volver</a>
+        <form action="/contingencies/{{ $contingency->id}}" method="POST" onSubmit="if(!confirm('Estas seguro de eliminar esta contingencia !?,')){return false;}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="delete">
-            <button class="ui right floated small red button" type="submit">
+            <button class="ui right floated small red button" type="submit" title="Eliminar"  >
                 Eliminar
             </button>
         </form>
-        <a class="ui right floated small green button" href="/contingencies/{{ $contingency->id }}/edit">Editar</a>
-        <a class="ui right floated small blue button" href="/documents">Volver</a><br>
+        <a class="ui right floated small green button" href="/contingencies/{{ $contingency->id }}/edit">Modificar</a>
+        
     </div>
 </div>
 @endsection

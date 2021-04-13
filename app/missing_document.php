@@ -4,7 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class missing_document extends Model
+class Missing_document extends Model
 {
-    protected $fillable = ['station_id', 'name', 'document_id', 'code'];
+    protected $table = 'missing_documents';
+    
+    protected $fillable = ['station_id', 'name','code'];
 }

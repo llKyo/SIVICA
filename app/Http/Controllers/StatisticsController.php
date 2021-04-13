@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Document;
 use App\Station;
-use App\missing_document;
+use App\Missing;
 
 class StatisticsController extends Controller
 {
@@ -74,7 +74,7 @@ class StatisticsController extends Controller
           
         }
         
-        $faltantes = missing_document::all()->sortBy('station_id');    
+        $faltantes = Missing::all()->sortBy('station_id');    
         
 
         $maintenances = \App\Maintenance::where('execution_date', null )->where('year_mma',\Carbon\Carbon::now()->year)->where('month_mma',$month_span);

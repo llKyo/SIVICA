@@ -44,11 +44,11 @@ class ElementController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $element = \App\Element::find($id);
         $element->update($request->all());
         $action = 'Edita Equipo | Nombre:'.$element->name.' | Modelo: '.$element->model.' | S/N: '.$element->sn.'| Id : '.$element->id.'' ;
         \App\Log::create(['user_name' => \Auth::user()->name ,'user_id' => \Auth::user()->id ,'action' => $action,'item' => 'Equipos']);
-
         return redirect('/elements_inventary');
     }
 

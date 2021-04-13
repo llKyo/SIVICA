@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="sixteen wide column">
 <h2>Informes & Busquedas</h2>
 <h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Mantenciones por Estacion / Mes / Año</h4>

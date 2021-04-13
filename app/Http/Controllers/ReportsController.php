@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use \App\Period;
 use \DB;
 use \App\Contingency;
-use \App\Missing_document as Missings;
+use \App\Station;
+use \App\Document;
+use \App\Missing;
 use \Carbon\Carbon as Carbon;
 
 class ReportsController extends Controller
@@ -21,7 +23,7 @@ class ReportsController extends Controller
 
     public function reportMaintenances(Request $request)
     {
-        //dd($request);
+       
         if($request->station != 'all')
         {
             $maintenances = \App\Maintenance::where('station_id',$request->station)->get();
@@ -285,23 +287,30 @@ class ReportsController extends Controller
 
     public function reportMissings(Request $request)
     {
+        
+        
+
         if($request->station != 'all')
         {
-            $correlatives = Missings::where('station_id', $request->station)->get();
+            Missing::setMissings($request->station);
+            $correlatives = Missing::where('station_id', $request->station)->get();
+            
         }
         else
         {
-            $correlatives = Missings::all();
+            Missing::resetMissings();
+            $correlatives = Missing::all();
         }
 
         if($request->station != 'all')
         {
-            $station = \App\Station::find($request->station)->name;
+            $station = Station::find($request->station)->name;
         }
         else
         {
             $station = 'Todas';
         }
+        
         
         return view('mma.reports.missings')
             ->with('correlatives', $correlatives)

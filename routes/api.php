@@ -249,16 +249,16 @@ Route::get('/documents/period/{period}/user/{user_id}',function ($period,$user_i
                 //Dudas sobre la ubicación por rol
                 if ($f->contingency_id != null) {
                     //Ver contingencia ya existente
-                    $contingency = '<a class="ui mini icon defaut button" href="/contingencies/'.$f->contingency_id. '"><i class="icon black eye"></i> Ver Cont.</a>';
+                    $contingency = '<a class="ui red basic button mini icon defaut" href="/contingencies/'.$f->contingency_id. '"><i class="icon exclamation triangle"></i> Ver Cont.</a>';
                 } else {
                     //Crear una contingencia
                     //$contingency = $f->id;
-                    $contingency = '<a class="ui mini icon defaut button" href="/new_contingency/'.$f->id. '"><i class="icon plus"></i> Crear Cont.</a>';
+                    $contingency = '<a class="ui green basic button mini icon defaut" href="/new_contingency/'.$f->id. '"><i class="icon plus"></i> Crear Cont.</a>';
                 }
             } else {
                 if ($f->contingency_id != null) {
                     //Ver contingencia ya existente
-                    $contingency = '<a class="ui mini icon defaut button" href="/contingencies/'.$f->contingency_id. '"><i class="icon black eye"></i> Ver Cont.</a>';
+                    $contingency = '<a class="ui red basic button mini icon defaut " href="/contingencies/'.$f->contingency_id. '"><i class="icon exclamation triangle"></i> Ver Cont.</a>';
                 } else {
                     $contingency = '';
                 }

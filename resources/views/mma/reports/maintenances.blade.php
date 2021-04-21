@@ -20,7 +20,7 @@ color: white;
 </style>
 <div class="sixteen wide column">
 
-<h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Informe Contingencias por Estacion / Mes / Año</h4>
+<h4 class="ui horizontal dividing header"><i class="calendar icon"></i>Informe Mantenciones por Estacion / Mes / Año</h4>
 <small style="display:none" class="header_export">Mantenciones  Estacion :: {{ $station }} | Año :: {{ $year == 'all' ? 'Todos' : $year }} | Mes ::{{ $month == 'all' ? 'Todos' : $month}} </small>
 <div class="ui blue label">
   <i class="marker icon"></i>
@@ -52,6 +52,7 @@ color: white;
                 <th>Actividad</th>
                 <th>Estado</th>
                 <th>Validacion</th>
+                <th>Observacion</th>
                 <th><i class="icon comment"></i> MMA</th>
                 <th><i class="icon comment"></i> Empresa</th>
 
@@ -91,6 +92,8 @@ color: white;
                     @endforelse
                     </small>
                 </td>
+                
+                <td>{{ $maintenance->check_observation }}</td>
                 <td>{{ $maintenance->mma_comment }}</td>
                 <td>{{ $maintenance->company_comment}}</td>
                 </tr>

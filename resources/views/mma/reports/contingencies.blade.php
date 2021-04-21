@@ -54,6 +54,7 @@ color: white;
     <table class="ui celled table sortable datatable_button">
         <thead>
             <tr>
+                <th>Estacion</th>
                 <th>Fecha<br> Anomalía</th>
                 <th>Fecha<br> visita</th>
                 <th>Seguimiento</th>
@@ -69,6 +70,9 @@ color: white;
         <tbody>    
             @foreach ($contingencies as $c)
                 <tr>
+                <td>
+                    {{$c->station->name}}
+                </td>
                 <td>{{$c->anomaly_date}}</td>
                 <td>{{$c->visit_date}}</td>
                 <td>{{$c->tracking}}</td>

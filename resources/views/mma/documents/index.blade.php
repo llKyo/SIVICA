@@ -123,24 +123,42 @@
     
 
 
-    <table class="ui celled table sortable" id="documents_table" >
+    <table class="ui celled table sortable" id="documents_table">
         <thead>
             <tr>
-{{-- 
-                <th>Ingreso | Edicion <br></th>
-                <th>Periodo <br></th>
-                <th>Codigo <br></th>
-                <th>Version <br></th>
-                <th>Reporte <br></th>
-                <th>Estacion <br></th>
-                <th>Mantencion Asoc. <br></th>
-                <th>MMA <i class="icon comment"></i> <br></th>
-                <th>Empresa <i class="icon comment"></i> <br></th>
-                <th>Otros <i class="icon comment"></i> <br></th>
-                <th>Contingencias <i class="icon warning"></i> <br></th>
-                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></th> --}}
+
+                <th>Ingreso | Edicion</th>
+                <th>Periodo</th>
+                <th>Codigo</th>
+                <th>Version</th>
+                <th>Reporte</th>
+                <th>Estacion</th>
+                <th>Mantencion Asoc.</th>
+                <th>MMA <i class="icon comment"></i></th>
+                <th>Empresa <i class="icon comment"></i></th>
+                <th>Otros <br>Comentarios <i class="icon comment"></i></th>
+                <th>Contingencias <i class="icon warning"></i></th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
         </thead>
+        <!--<tfoot>
+            <tr>
+                <th>Ingreso | Edicion</th>
+                <th>Periodo</th>
+
+                <th>Codigo</th>
+                <th>Version</th>
+                <th>&nbsp; &nbsp; &nbsp;Documento &nbsp; &nbsp; &nbsp;</th>
+
+                <th>Estacion</th>
+                <th>MMA <i class="icon comment"></i></th>
+                <th>Empresa <i class="icon comment"></i></th>
+                <th>Acciones</th>
+            </tr>
+        </tfoot>-->
+        <tbody>
+                
+        </tbody>
     </table>
 
 
@@ -152,11 +170,30 @@
 </div>{{-- div From App--}}
 </div>{{-- div From App--}}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-{{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> --}}
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+      /**  $('#documents_table tfoot th').each( function () {
+            var title = $(this).text();
+            var w = $(this).width() - 5;
+            $(this).html( '<input type="text" placeholder="Buscar" style="width:'+w+'px;"/>' );
+        });
+
+        var table = $('#documents_table').DataTable(
+            {
+                "order": [[ 1, "desc" ]]
+            }
+        );
+
+       table.columns().every( function () {
+            var that = this;
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that.search( this.value ).draw();
+                }
+                });
+        });*/
 
         $('#code_doc').blur(function(){
             var code = $('#code_doc').val();
@@ -201,141 +238,36 @@
 
 });
 
-var $table = $('#documents_table');
-
-function chargeTable() {
-    console.log('/api/documents/period/'+$('#periods :selected').val()+'/user/{{ \Auth::user()->id }}');
-    $table.bootstrapTable({
-        method: 'get',
-        exportDataType: 'selected',
-        showExport: true,
-        queryParams: function (p) {
-        },
-        url: '/api/documents/period/'+$('#periods :selected').val()+'/user/{{ \Auth::user()->id }}',
-        cache: true,
-        striped: true,
-        pagination: true,
-        pageSize: 5,
-        pageList: [5, 10, 20, 50, 100],
-        search: true,
-        showColumns: true,
-        showRefresh: true,
-        minimumCountColumns: 2,
-        clickToSelect: false, 
-        onClickRow: function (row, element, field) {
-            switch (field) {
-                case 'Edit':
-                    console.log('nepe pa que edita');
-                    break;
-            
-                default:
-                    break;
-            }
-        },
-        columns: [ {
-                field: 'date',
-                title: 'Ingreso | Edicion',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'code',
-                title: 'Código',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'version',
-                title: 'Versión',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'documents',
-                title: 'Reporte',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'station',
-                title: 'Estación',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'maintenances',
-                title: 'Mantencion<br>Asoc.',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'mma_comment',
-                title: 'MMA <i class="icon comment"></i>',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'company_comment',
-                title: 'Empresa <i class="icon comment"></i>',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'another_comment',
-                title: 'Otros <i class="icon comment"></i>',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'contingency',
-                title: 'Contingencia',
-                align: 'center',
-                valign: 'center',
-                sortable: true,
-                // formatter: function (value, row) { },
-            }, {
-                field: 'actions',
-                title: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Acciones &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
-                align: 'center',
-                valign: 'center',
-                sortable: false,
-                // formatter: function (value, row) { },
-            }, 
-        ],
-        formatLoadingMessage: function () {
-            return 'Cargando, espere por favor'
-        },
-        formatSearch: function () {
-            return 'Buscar'
-        },
-        formatRecordsPerPage (pageNumber) {
-            return `${pageNumber} filas por página`
-        },
-        formatShowingRows (pageFrom, pageTo, totalRows, totalNotFiltered) {
-            if (totalNotFiltered !== undefined && totalNotFiltered > 0 && totalNotFiltered > totalRows) {
-            return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas (filtrado de ${totalNotFiltered} filas totales)`
-            }
-
-            return `Mostrando ${pageFrom} a ${pageTo} de ${totalRows} filas`
-        },
-    })
-}
-
-
 function filterDataTableDocuments()
-{ 
-    $table.bootstrapTable('destroy');
-    chargeTable();
+{
+    $('#documents_table').DataTable().destroy();
+    $.getJSON('/api/documents/period/'+$('#periods :selected').val()+'/user/{{ \Auth::user()->id }}', function(data){
+
+       $('#documents_table').DataTable({
+           "aaData": data,
+           "aoColumns": [
+                {"mDataProp":"date"},
+                {"mDataProp":"period"},
+                {"mDataProp":"code"},
+                {"mDataProp":"version"},
+                {"mDataProp":"documents"},
+                {"mDataProp":"station"},
+                {"mDataProp":"maintenances"},
+                {"mDataProp":"mma_comment"},
+                {"mDataProp":"company_comment"},
+                {"mDataProp":"another_comment"},
+                {"mDataProp":"contingency"},
+                {"mDataProp":"actions"},
+           ],
+           "paging":   true,
+           "ordering": true,
+           "info":     true,
+           fixedHeader: true,
+           destroy: true,
+       });
+   });
 }
+
 
 </script>
 @endsection

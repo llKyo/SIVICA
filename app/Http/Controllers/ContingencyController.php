@@ -26,8 +26,12 @@ class ContingencyController extends Controller
      */
     public function create($document_id)
     {
+
+        $station_id = Document::find($document_id)->station_id;
+
         return view('mma.contingencies.create')
-        ->with('document_id',$document_id);
+        ->with('document_id',$document_id)
+        ->with('station_id',$station_id);
     }
 
     /**
@@ -38,8 +42,6 @@ class ContingencyController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-
         $contingency = Contingency::create($request->all());
         $document = Document::find(request('document_id'));
         $document->update(['contingency_id'=> $contingency->id]);

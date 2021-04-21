@@ -4,7 +4,7 @@ namespace App;
 
 use App\Station;
 use App\Document;
-use App\Missings;
+use App\Missing;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,14 +38,14 @@ class Missing extends Model
             
             $missings = $correlatives->diff($documents_ids);
             
-            // createMissing($s, $missings);
+                // createMissing($s, $missings);
             foreach ($missings as $m) {
-            Missing::create([
-                'station_id' => $s->id,
-                'name' => $s->name,
-                'code' => $m,
-            ]);
-        }
+                Missing::create([
+                    'station_id' => $s->id,
+                    'name' => $s->name,
+                    'code' => $m,
+                ]);
+            }
         }
     }
 

@@ -11,6 +11,7 @@
     <form class="ui form" action="/contingencies" method="POST">
     {{ csrf_field() }}
     <input type="hidden" name="document_id" value="{{ $document_id }}">
+    <input type="hidden" name="station_id" value="{{ $station_id }}">
 
     <div class="three fields">
         <div class="field">
@@ -95,11 +96,6 @@
             <label>Gestionar otra acción luego de la visita</label>
                 <input class="ui input" type="text" name="manage_action" placeholder="...">
         </div>
-        {{-- <div class="field">
-            <label>Estación Asociada</label>
-            <input class="ui input" type="hidden" name="station_id" value="{{ $station->id }}">
-            <input class="ui input" type="text" name="station_name" disabled value="{{ $station->name }}">
-        </div> --}}
     </div>
     
 
